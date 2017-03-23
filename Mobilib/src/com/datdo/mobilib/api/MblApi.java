@@ -183,6 +183,7 @@ public class MblApi {
                     request.getStatusCodeValidator(),
                     request.getData(),
                     request.isRedirectEnabled(),
+                    request.isParamsIgnoreEmptyValues(),
                     request);
         }
     }
@@ -415,11 +416,12 @@ public class MblApi {
             final MblStatusCodeValidator statusCodeValidator,
             final String data,
             final boolean redirectEnabled,
+            final boolean isParamsIgnoreEmptyValues,
             final MblRequest request) {
 
         Assert.assertNotNull(method);
 
-        final Map<String, ? extends Object> paramsNoEmptyVal = getParamsIgnoreEmptyValues(params);
+        final Map<String, ? extends Object> paramsNoEmptyVal = isParamsIgnoreEmptyValues ? getParamsIgnoreEmptyValues(params) : params;
 
         final Handler fCallbackHandler;
         if (callbackHandler != null) {

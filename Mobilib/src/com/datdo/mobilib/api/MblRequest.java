@@ -3,14 +3,14 @@ package com.datdo.mobilib.api;
 import android.os.Handler;
 import android.text.TextUtils;
 
+import com.datdo.mobilib.api.MblApi.MblApiCallback;
+import com.datdo.mobilib.api.MblApi.Method;
+import com.datdo.mobilib.util.MblUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
-
-import com.datdo.mobilib.api.MblApi.*;
-import com.datdo.mobilib.util.MblUtils;
 
 /**
  * <pre>
@@ -54,6 +54,7 @@ public class MblRequest {
     private MblStatusCodeValidator          mStatusCodeValidator    = sDefaultStatusCodeValidator;
     private String                          mData;
     private boolean                         mRedirectEnabled        = false;
+    private boolean                         mIsParamsIgnoreEmptyValues = true;
     private long                            mTimeout                = -1;
 
     public MblRequest() {}
@@ -188,6 +189,11 @@ public class MblRequest {
         return this;
     }
 
+    public MblRequest setIsParamsIgnoreEmptyValues(boolean isParamsIgnoreEmptyValues) {
+        mIsParamsIgnoreEmptyValues = isParamsIgnoreEmptyValues;
+        return this;
+    }
+
     public MblRequest setTimeout(long timeout) {
         mTimeout = timeout;
         return this;
@@ -235,6 +241,10 @@ public class MblRequest {
 
     public boolean isRedirectEnabled() {
         return mRedirectEnabled;
+    }
+
+    public boolean isParamsIgnoreEmptyValues() {
+        return mIsParamsIgnoreEmptyValues;
     }
 
     public long getTimeout() {
